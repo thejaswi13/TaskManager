@@ -3,14 +3,26 @@ import jwt from "jsonwebtoken";
 const createJWT = (res, userId) => {
   const token = jwt.sign({ userId }, process.env.JWT_SECRET, {
     expiresIn: "1d",
+    sameSite: "none",
   });
 
-  res.cookie("token", token, {
+  // Determine if the connection is secure (over HTTPS)
+  const isSecure = process.env.NODE_ENV !== "development";
+
+  // Calculate expiration date (1 day from now)
+  const expires = new Date();
+  expires.setDate(expires.getDate() + 1);
+
+  // Set secure flag only if the connection is over HTTPS
+  const cookieOptions = {
     httpOnly: true,
-    secure: process.env.NODE_ENV !== "development", // Use secure cookies in production
+    secure: isSecure,
     sameSite: "none",
-    maxAge: 1 * 24 * 60 * 60 * 1000, // 1 days
-  });
+    expires: expires, // Set the expiration date
+  };
+
+  // Set the cookie
+  res.cookie("token", token, cookieOptions);
 };
 
 export default createJWT;
