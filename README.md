@@ -14,7 +14,8 @@ In a dynamic work environment, effective task management is crucial for team suc
 This system is set up for the admin to have full control. They can assign tasks, update, delete, and create user profiles. Only the admin can verify tasks and mark them as completed. This ensures streamlined management and oversight.Users can complete their tasks and comment on the particular task to let the admin know about it.
 
 ## credentials of user for a live demo
-email:user1@gmail.com
+
+Email: user1@gmail.com
 password:user1
 
 
